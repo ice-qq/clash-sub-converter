@@ -1,0 +1,6 @@
+name: '{{name}}'
+type: {{p_type}}
+server: {{json['host'] or json['add']}}
+port: {{json['port'] | int}}
+udp: {{json['udp'] or json['params.udp'] | default(true, true)}}
+ip-version: ipv6-prefer

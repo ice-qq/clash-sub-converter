@@ -1,0 +1,14 @@
+.venv/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+.env
+.DS_Store
+.git
+clash_cache.sqlite
+config/sub-urls.yaml
+config/clash-base-proxies.yaml

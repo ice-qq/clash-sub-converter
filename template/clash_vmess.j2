@@ -1,0 +1,6 @@
+{% include "clash_base.j2" %}
+uuid: {{json['id']}}
+alterId: {{json['aid'] | default(0) | int}}
+network: {{json['net'] | default('tcp')}}
+cipher: {{json['scy'] | default('auto')}}
+tls: {{json['tls'] | default(false, true)}}

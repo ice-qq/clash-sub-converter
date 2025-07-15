@@ -1,0 +1,4 @@
+.venv
+./config/clash-base-proxies.yaml
+./config/sub-urls.yaml
+./clash_cache.sqlite

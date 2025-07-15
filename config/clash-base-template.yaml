@@ -1,0 +1,44 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+ipv6: true
+log-level: info
+external-controller: '127.0.0.1:9090'
+unified-delay: true
+
+tun:
+  enable: false
+dns:
+  enable: true
+  listen: '[::]:1053'
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - +.lan
+    - +.local
+  fake-ip-filter-mode: blacklist
+  respect-rules: true
+  prefer-h3: true
+  use-system-hosts: true
+  default-nameserver:
+    - system
+  proxy-server-nameserver:
+    - 8.8.8.8
+    - https://dns.google/dns-query
+    - https:/8.8.8.8/dns-query
+    - tls://8.8.8.8
+  direct-nameserver:
+    - system
+  nameserver:
+    - system
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+
+{{proxies}}
+
+{{proxy_groups}}
+
+{{rules}}

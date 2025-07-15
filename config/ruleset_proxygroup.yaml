@@ -1,0 +1,92 @@
+ruleset:
+  - urls: https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/direct_white.list
+    proxy-group: 🎯 全球直连
+  - urls: https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/proxy_black.list
+    proxy-group: 🚀 节点选择
+  - urls: https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/openai.list
+    proxy-group: 💬 OpenAi
+  - urls:
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaIp.list
+    proxy-group: 🎯 全球直连
+
+  - urls:
+     - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
+     - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
+    proxy-group: 🎯 全球直连
+  - urls: https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/OpenAi.list
+    proxy-group: 💬 OpenAi
+  - urls:
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyGFWlist.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
+      - https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list
+    proxy-group: 🚀 节点选择
+  - proxy-group: 🎯 全球直连
+    value: GEOIP,CN
+  - proxy-group: 🚀 节点选择
+    value: GEOIP,US
+  - proxy-group: 🌍 国外
+    urls:
+      - https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/geoip_asia.list
+      - https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/geoip_europe.list
+      - https://raw.githubusercontent.com/ice-qq/clash-config/refs/heads/master/geoip_na.list
+  - proxy-group: 🐟 漏网之鱼
+    value: MATCH
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxy-groups:
+      - 🔄 自动选择
+      - ⭐ 优质节点
+      - 🧑‍💻自建节点
+      - DIRECT
+    regex: '.*'
+  - name: 🔄 自动选择
+    type: url-test
+    regex: '^(?!.*(iplc|IPLC|8x|高倍率|4x)).*'
+    tolerance: 50
+    interval: 600
+    test-url: http://www.gstatic.com/generate_204
+  - name: 💬 OpenAi
+    type: url-test
+    regex: '^(?!.*(港|HK|hk|Hong Kong|HongKong|hongkong|发布|流量|套餐)).*'
+    tolerance: 50
+    interval: 1500
+    test-url: http://www.gstatic.com/generate_204
+  - name: ⭐ 优质节点
+    type: url-test
+    regex: '.*(iplc|IPLC|8x|高倍率|4x).*'
+    tolerance: 50
+    interval: 1800
+    test-url: http://www.gstatic.com/generate_204
+  - name: 🧑‍💻自建节点
+    type: url-test
+    regex: '.*(own).*'
+    tolerance: 50
+    interval: 1800
+    test-url: http://www.gstatic.com/generate_204
+  - name: 🎯 全球直连
+    type: select
+    proxy-groups:
+      - DIRECT
+      - 🚀 节点选择
+  - name: 🚫 全球拦截
+    type: select
+    proxy-groups:
+      - REJECT
+      - DIRECT
+  - name: 🌍 国外
+    type: select
+    proxy-groups:
+      - 🚀 节点选择
+      - 🎯 全球直连
+  - name: 🐟 漏网之鱼
+    type: select
+    proxy-groups:
+      - 🎯 全球直连
+      - 🚀 节点选择

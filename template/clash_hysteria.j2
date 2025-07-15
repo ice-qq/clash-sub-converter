@@ -1,0 +1,4 @@
+{% include "clash_base.j2" %}
+password: {{ json['uuid'] }}
+sni: {{ json['params.sni'][0]}}
+skip-cert-verify: {{ json['params.allowInsecure'][0] |int  == 1}}

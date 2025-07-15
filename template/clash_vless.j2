@@ -1,0 +1,7 @@
+{% include "clash_base.j2" %}
+uuid: {{json['uuid']}}
+client-fingerprint: {{json['fp']}}
+servername: {{json['spx']}}
+reality-opts:
+  public-key: {{ json['pbk'] }}
+  short-id: {{ json['sid'] }}
