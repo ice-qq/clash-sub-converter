@@ -48,7 +48,10 @@ def _generate_ruleset(ruleset):
     return [','.join(rule) for rule in rules]
 
 def _generate_ruleset_group(proxy_names: list):
-    data = yaml.safe_load(utils.get_file_content("config/ruleset_proxygroup.yaml"))
+    path = "config/ruleset_proxygroup.yaml"
+    if not os.path.exists(path):
+        path = "/defaults/config/ruleset_proxygroup.yaml"
+    data = yaml.safe_load(utils.get_file_content(path))
     clash_rules = [rule for ruleset in data['ruleset'] for rule in _generate_ruleset(ruleset) ]
     clash_proxy_groups = [_generate_proxy_groups(proxy_group, proxy_names) for proxy_group in data['proxy-groups']]
     return clash_proxy_groups, clash_rules
@@ -66,7 +69,10 @@ def generate_clash_yaml(clash_proxies):
 
     clash_proxy_groups, clash_rules = _generate_ruleset_group(proxy_names)
 
-    template = Template(utils.get_file_content('config/clash-base-template.yaml'))
+    path = 'config/clash-base-template.yaml'
+    if not os.path.exists(path):
+        path = '/defaults/config/clash-base-template.yaml'
+    template = Template(utils.get_file_content(path))
     clash_proxies = yaml.dump({'proxies': clash_proxies}, allow_unicode=True, default_flow_style=False, indent=2, Dumper=IndentDumper)
     clash_proxy_groups = yaml.dump({'proxy-groups': clash_proxy_groups}, allow_unicode=True, default_flow_style=False, indent=2, Dumper=IndentDumper)
     clash_rules = yaml.dump({'rules': clash_rules}, allow_unicode=True, default_flow_style=False, indent=2, Dumper=IndentDumper)
